@@ -8,6 +8,8 @@ const Appointment = () => {
 
   const { doctors, currencySymbol } = useContext(AppContext);
 
+  const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
   const [docInfo, setDocInfo] = useState(null);
 
   const [docSlots, setDocSlots] = useState([]);
@@ -22,9 +24,70 @@ const Appointment = () => {
     console.log(docInfo);
   };
 
+  const getAvailableSlots = async () => {
+    setDocSlots([]);
+    // getting  current date
+
+    let today = new Date();
+
+    for (let i = 0; i < 7; i++) {
+      // getting  date with index
+      let currentDate = new Date(today);
+      currentDate.setDate(today.getDate() + i);
+
+      //setting end time of the date  with index
+
+      let endTime = new Date();
+      endTime.setDate(today.getDate() + i);
+
+      endTime.setHours(21, 0, 0, 0);
+
+      //setting Hours
+      if (today.getDate() === currentDate.getDate()) {
+        currentDate.setHours(
+          currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10
+        );
+        currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0);
+      } else {
+        currentDate.setHours(10);
+        currentDate.setMinutes(0);
+      }
+
+      let timeSlots = [];
+
+      while (currentDate < endTime) {
+        let formattedTime = currentDate.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+        // add slot to array
+
+        timeSlots.push({
+          dateTime: new Date(currentDate),
+          time: formattedTime,
+        });
+
+        // InCrement current time by 30 minutes
+
+        currentDate.setMinutes(currentDate.getMinutes() + 30);
+      }
+
+      setDocSlots((prev) => [...prev, timeSlots]);
+    }
+  };
+
   useEffect(() => {
     fetchDocInfo();
   }, [doctors, docId]);
+
+  useEffect(() => {
+    getAvailableSlots();
+  }, [docInfo]);
+
+  useEffect(() => {
+    console.log(docSlots);
+  }, [docSlots]);
+
   return (
     docInfo && (
       <div className="flex flex-col sm:flex-row gap-4">
@@ -68,6 +131,8 @@ const Appointment = () => {
             </span>
           </p>
         </div>
+        {/*-------Booking Slots */}
+        <div className="sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700"></div>
       </div>
     )
   );
