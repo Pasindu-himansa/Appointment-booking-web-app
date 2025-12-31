@@ -132,7 +132,26 @@ const Appointment = () => {
           </p>
         </div>
         {/*-------Booking Slots */}
-        <div className="sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700"></div>
+        <div className="sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700">
+          <p>Booking Slots </p>
+          <div className="flex gap-3 items-center w-full overflow-x-scroll mt-4">
+            {docSlots.length &&
+              docSlots.map((item, index) => (
+                <div
+                  onClick={() => setSlotIndex(index)}
+                  className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
+                    slotIndex === index
+                      ? "bg-blue-400 text-white"
+                      : "border border-gray-200"
+                  }`}
+                  key={index}
+                >
+                  <p>{item[0] && daysOfWeek[item[0].dateTime.getDay()]}</p>
+                  <p>{item[0] && item[0].dateTime.getDate()}</p>
+                </div>
+              ))}
+          </div>
+        </div>
       </div>
     )
   );
