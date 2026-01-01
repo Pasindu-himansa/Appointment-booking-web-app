@@ -90,12 +90,12 @@ const Appointment = () => {
 
   return (
     docInfo && (
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col lg:flex-row gap-8">
         {/*------------------Doctor Details------------------ */}
         <div>
           <div>
             <img
-              className="bg-blue-200 w-full sm:max-w-72 rounded-lg"
+              className="bg-blue-200  w-full sm:max-w-72 rounded-lg"
               src={docInfo.image}
               alt=""
             />
@@ -132,7 +132,7 @@ const Appointment = () => {
           </p>
         </div>
         {/*-------Booking Slots */}
-        <div className="sm:ml-72 sm:pl-4 mt-4 font-medium text-gray-700">
+        <div className="sm:ml-72 mt-4 font-medium text-gray-700">
           <p>Booking Slots </p>
           <div className="flex gap-3 items-center w-full overflow-x-scroll mt-4">
             {docSlots.length &&
@@ -141,7 +141,7 @@ const Appointment = () => {
                   onClick={() => setSlotIndex(index)}
                   className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${
                     slotIndex === index
-                      ? "bg-blue-400 text-white"
+                      ? "bg-blue-500 text-white"
                       : "border border-gray-200"
                   }`}
                   key={index}
@@ -151,6 +151,25 @@ const Appointment = () => {
                 </div>
               ))}
           </div>
+          <div className="flex items-center gap-3 w-full overflow-x-scroll mt-4">
+            {docSlots.length &&
+              docSlots[slotIndex].map((item, index) => (
+                <p
+                  onClick={() => setSlotTime(item.time)}
+                  className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${
+                    item.time === slotTime
+                      ? "bg-blue-500 text-white"
+                      : "text-gray-400 border border-gray-300"
+                  }`}
+                  key={index}
+                >
+                  {item.time.toLowerCase()}
+                </p>
+              ))}
+          </div>
+          <button className="bg-blue-500 text-white text-sm font-light px-14 py-3 rounded-full my-6">
+            Book an appointment
+          </button>
         </div>
       </div>
     )
