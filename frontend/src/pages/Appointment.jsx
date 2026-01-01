@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets_frontend/assets";
+import RelatedDoctors from "../components/RelatedDoctors";
 
 const Appointment = () => {
   const { docId } = useParams();
@@ -90,9 +91,9 @@ const Appointment = () => {
 
   return (
     docInfo && (
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex-1 flex-col lg:flex-row gap-8">
         {/*------------------Doctor Details------------------ */}
-        <div>
+        <div className="flex-1 flex-col">
           <div>
             <img
               className="bg-blue-200  w-full sm:max-w-72 rounded-lg"
@@ -171,6 +172,9 @@ const Appointment = () => {
             Book an appointment
           </button>
         </div>
+        {/* Listing Related Doctors */}
+
+        <RelatedDoctors docId={docId} speciality={docInfo.speciality} />
       </div>
     )
   );
