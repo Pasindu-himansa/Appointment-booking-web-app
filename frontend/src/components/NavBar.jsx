@@ -33,7 +33,7 @@ const NavBar = () => {
           <hr className="bordor-none outline-none h-05 bg-primary w-3/5 m-auto hidden" />
         </NavLink>
       </ul>
-      <div>
+      <div className="flex items-center gap-3">
         {token ? (
           <div className="flex items-center gap-2 cursor-pointer group relative">
             <img
@@ -81,12 +81,16 @@ const NavBar = () => {
         />
         {/*------Mobile Menu------ */}
         <div
-          className={`${
-            showMenu ? "fixed w-full" : "h-0 w-0"
-          }md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all`}
+          className={`md:hidden fixed top-0 right-0 h-full bg-white z-30 transition-all duration-300 ${
+            showMenu ? "w-full" : "w-0"
+          }`}
         >
           <div className="flex items-center justify-between px-5 py-6">
-            <img className="w-36" src={assets.logo} alt="" />
+            <img
+              className="w-32 md:w-44 cursor-pointer"
+              src={assets.logo}
+              alt=""
+            />
             <img
               className="w-7"
               onClick={() => setShowMenu(false)}
