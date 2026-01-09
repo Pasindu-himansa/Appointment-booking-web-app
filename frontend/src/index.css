@@ -18,3 +18,27 @@
     @apply text-white bg-blue-600;
   }
 }
+* {
+  cursor: default !important;
+}
+
+/* Allow the pointer (hand) for buttons and links */
+a,
+button,
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+/* Allow the I-beam ONLY where it belongs (inputs/text) */
+input,
+textarea,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  cursor: auto;
+}
